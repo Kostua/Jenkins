@@ -1,5 +1,6 @@
 configuration-as-code 
-configuration-as-code-support 
 workflow-aggregator 
 docker-workflow 
 blueocean 
+credentials
+job-dsl

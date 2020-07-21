@@ -1,0 +1,25 @@
+version: '3.8'
+
+volumes:
+    jenkins-data:
+    jenkins-docker-certs:
+
+networks: 
+    jenkins:
+
+services:
+  jenkins:
+    build: .
+    hostname: jenkins.local
+    container_name: jenkins
+    image: kostua/jenkins:alpine
+    env_file:
+      - ./jenkins.env
+    networks: 
+      - jenkins
+    ports:
+      - 8080:8080
+      - 50000:50000
+    volumes:
+      - jenkins-data:/var/jenkins_home
+      - jenkins-docker-certs:/certs/client:ro
