@@ -9,7 +9,15 @@ security:
     useScriptSecurity: false
 jobs:
   - script: >
-      freeStyleJob("Jobs Generator") {
+      freeStyleJob('JobsGenerator') {
+        triggers {
+                    hudsonStartupTrigger {
+                      quietPeriod("60")
+                      runOnChoice("ON_CONNECT")
+                      label("")
+                      nodeParameterName("")
+                }
+          }
         scm {
             github('Kostua/jenkins_as_code_jobs', 'master')
         }
@@ -19,3 +27,5 @@ jobs:
             }
         }
       }
+  - script: >
+      queue('JobsGenerator')

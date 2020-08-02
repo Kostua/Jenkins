@@ -4,3 +4,4 @@ docker-workflow
 blueocean 
 credentials
 job-dsl
+startup-trigger-plugin
