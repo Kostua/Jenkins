@@ -13,7 +13,6 @@ tool:
       - name: Default
         home: "git"
 jobs:
-  jobs:
   - script: >
       freeStyleJob("Jobs Generator") {
         scm {
