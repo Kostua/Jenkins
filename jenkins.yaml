@@ -13,21 +13,15 @@ tool:
       - name: Default
         home: "git"
 jobs:
+  jobs:
   - script: >
-      pipelineJob('Jobs Generator') {
-          definition {
-              triggers {
-                  cron('H/5 * * * *')
-              }
-              cpsScm {
-                  scm {
-                    git {
-                        remote { url 'https://github.com/Kostua/jenkins_as_code_jobs.git' }
-                        branch '*/master'
-                        extensions {}
-                    }
-                  }
-                  scriptPath '*.groovy'
-              }
-          }
+      freeStyleJob("Jobs Generator") {
+        scm {
+            github('Kostua/jenkins_as_code_jobs', 'master')
+        }
+        steps {
+            dsl {
+              external('*.groovy')
+            }
+        }
       }
