@@ -7,17 +7,18 @@ jenkins:
 security:
   globalJobDslSecurityConfiguration:
     useScriptSecurity: false
+tool:
+  git:
+    installations:
+      - name: Default
+        home: "git"
+
 jobs:
   - script: >
-      freeStyleJob('JobsGenerator') {
+        freeStyleJob("Jobs Generator") {
         triggers {
-                    hudsonStartupTrigger {
-                      quietPeriod("60")
-                      runOnChoice("ON_CONNECT")
-                      label("")
-                      nodeParameterName("")
-                }
-          }
+                cron('H/5 * * * *')
+              }
         scm {
             github('Kostua/jenkins_as_code_jobs', 'master')
         }
@@ -25,7 +26,6 @@ jobs:
             dsl {
               external('*.groovy')
             }
+          }
         }
-      }
-  - script: >
-      queue('JobsGenerator')
+        
