@@ -1,7 +1,7 @@
-configuration-as-code
-workflow-aggregator
+configuration-as-code 
+workflow-aggregator 
+docker-workflow 
 blueocean 
 credentials
 job-dsl
-git
-maven-plugin
+startup-trigger-plugin
