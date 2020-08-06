@@ -23,7 +23,7 @@ jobs:
         }
         steps {
             dsl {
-              external('*.groovy')
+              external('*.yaml')
             }
         }
       }
