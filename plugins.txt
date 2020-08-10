@@ -5,3 +5,4 @@ blueocean
 credentials
 job-dsl
 startup-trigger-plugin
+nodejs
