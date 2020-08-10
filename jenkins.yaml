@@ -7,7 +7,8 @@ jenkins:
 security:
   globalJobDslSecurityConfiguration:
     useScriptSecurity: false
-maven:
+tool:
+  maven:
     installations:
     - name: "M3"
       properties:
