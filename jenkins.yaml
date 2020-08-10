@@ -7,6 +7,14 @@ jenkins:
 security:
   globalJobDslSecurityConfiguration:
     useScriptSecurity: false
+maven:
+    installations:
+    - name: "M3"
+      properties:
+      - installSource:
+          installers:
+          - maven:
+              id: "3.6.3"
 jobs:
   - script: >
       freeStyleJob('JobsGenerator') {
