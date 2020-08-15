@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:alpine 
+FROM jenkinsci/blueocean
 
 ENV JENKINS_USER admin
 ENV JENKINS_PASS admin

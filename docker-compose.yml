@@ -1,25 +1,41 @@
 version: '3.8'
 
+services:
+  jenkins:
+    build: .
+    hostname: jenkins
+    container_name: jenkins
+    image: kostua/jenkinsci:blueocean
+    environment:
+      - DOCKER_HOST=tcp://docker:2376
+      - DOCKER_CERT_PATH=/certs/client
+      - DOCKER_TLS_VERIFY=1
+
+    networks: 
+      - jenkins
+    ports:
+      - 80:8080
+    volumes:
+      - jenkins-data:/var/jenkins_home
+      - jenkins-docker-certs:/certs/client:ro
+      - $HOME=/home
+    
+  dockerindocker:
+    image: docker:dind
+    privileged: true
+    environment:
+      - DOCKER_TLS_CERTDIR=/certs
+    networks:
+      jenkins:
+        aliases: 
+          - docker
+    volumes:
+      - jenkins-data:/var/jenkins_home
+      - jenkins-docker-certs:/certs/client
+      - $HOME=/home
 volumes:
     jenkins-data:
     jenkins-docker-certs:
 
 networks: 
     jenkins:
-
-services:
-  jenkins:
-    build: .
-    hostname: jenkins.local
-    container_name: jenkins
-    image: kostua/jenkins:alpine
-    env_file:
-      - ./jenkins.env
-    networks: 
-      - jenkins
-    ports:
-      - 80:8080
-      - 50000:50000
-    volumes:
-      - jenkins-data:/var/jenkins_home
-      - jenkins-docker-certs:/certs/client:ro
