@@ -9,7 +9,7 @@ ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
 USER root
 RUN apk add docker
 RUN apk add py-pip
-RUN apk add python-dev libffi-dev openssl-dev gcc libc-dev make
+RUN apk add python3-dev libffi-dev openssl-dev gcc libc-dev make
 RUN pip install docker-compose
 # COPY default-user.groovy /usr/share/jenkins/ref/init.groovy.d/
 COPY default-user.groovy /usr/share/jenkins/ref/init.groovy.d/
