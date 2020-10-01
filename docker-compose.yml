@@ -7,35 +7,35 @@ services:
     container_name: jenkins
     image: kostua/jenkinsci:blueocean
     environment:
-      - DOCKER_HOST=tcp://docker:2376
-      - DOCKER_CERT_PATH=/certs/client
-      - DOCKER_TLS_VERIFY=1
-
+      - DOCKER_HOST=tcp://socat:2375
     networks: 
       - jenkins
+      - vault
     ports:
       - 80:8080
+      - 50000:50000
     volumes:
       - jenkins-data:/var/jenkins_home
       - jenkins-docker-certs:/certs/client:ro
       - $HOME=/home
-    
-  dockerindocker:
-    image: docker:dind
-    privileged: true
-    environment:
-      - DOCKER_TLS_CERTDIR=/certs
-    networks:
-      jenkins:
-        aliases: 
-          - docker
-    volumes:
-      - jenkins-data:/var/jenkins_home
-      - jenkins-docker-certs:/certs/client
-      - $HOME=/home
+  socat:
+        image: alpine/socat
+        command: tcp-listen:2375,fork,reuseaddr unix-connect:/var/run/docker.sock 
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - jenkins-docker-certs:/certs/client:ro
+        networks:
+        - jenkins
+        ports:
+          - "127.0.0.1:2375:2375"
+
 volumes:
     jenkins-data:
     jenkins-docker-certs:
 
 networks: 
     jenkins:
+    vault:
+      external:
+        name: vault_vault
+        
