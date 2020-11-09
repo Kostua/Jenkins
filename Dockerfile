@@ -10,7 +10,9 @@ USER root
 RUN apk add docker
 RUN apk add py-pip
 RUN apk add python3-dev libffi-dev openssl-dev gcc libc-dev make
+RUN apk add terraform
 RUN pip install docker-compose
+RUN pip install ansible
 # COPY default-user.groovy /usr/share/jenkins/ref/init.groovy.d/
 COPY default-user.groovy /usr/share/jenkins/ref/init.groovy.d/
 USER jenkins
