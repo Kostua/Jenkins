@@ -1,13 +1,75 @@
 ---
 jenkins:
-  systemMessage: "Jenkins As Code Concept."
+  systemMessage: "Jenkins As Code"
   views:
     - myView:
         name: "Jobs Config as Code"
+  clouds:
+  - docker:
+      disabled:
+        disabledByChoice: true
+        enabledByChoice: false
+      dockerApi:
+        connectTimeout: 60
+        dockerHost:
+          uri: "tcp://socat:2375"
+        readTimeout: 60
+      name: "docker"
 security:
   globalJobDslSecurityConfiguration:
     useScriptSecurity: false
+credentials:
+  system:
+    domainCredentials:
+    - credentials:
+      - vaultAppRoleCredential:
+          description: "vault"
+          id: "vault"
+          path: "approle"
+          roleId: "${VAULT_APPROLE}"
+          scope: GLOBAL
+          secretId: "${VAULT_APPROLE_SECRET}"
+unclassified:
+  bitbucketEndpointConfiguration:
+    endpoints:
+    - bitbucketCloudEndpoint:
+        enableCache: false
+        manageHooks: false
+        repositoriesCacheDuration: 0
+        teamCacheDuration: 0
+  buildDiscarders:
+    configuredBuildDiscarders:
+    - "jobBuildDiscarder"
+  fingerprints:
+    fingerprintCleanupDisabled: false
+    storage: "file"
+  gitHubConfiguration:
+    apiRateLimitChecker: ThrottleForNormalize
+  gitHubPluginConfig:
+    hookUrl: "https://jenkins.test/github-webhook/"
+  gitSCM:
+    allowSecondFetch: false
+    createAccountBasedOnEmail: false
+    disableGitToolChooser: false
+    hideCredentials: false
+    showEntireCommitSummaryInChanges: false
+    useExistingAccountWithSameEmail: false
+  junitTestResultStorage:
+    storage: "file"
+  location:
+    adminAddress: "kostua.p@gmail.com"
+    url: "https://jenkins.test/"
+  mailer:
+    charset: "UTF-8"
+    useSsl: false
+    useTls: false
+  pollSCM:
+    pollingThreadCount: 10
 tool:
+  git:
+    installations:
+    - home: "git"
+      name: "Default"
 jobs:
   - script: >
       freeStyleJob('JobsGenerator') {
