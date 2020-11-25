@@ -7,16 +7,16 @@ services:
     container_name: jenkins
     image: kostua/jenkinsci:blueocean
     labels:
-       # Enables redirect to https, replace `containerName`
+       # Enables redirect to https
       - traefik.http.routers.jenkins.entrypoints=web
       - traefik.http.routers.jenkins.middlewares=redirect-to-https
-      # Enables TLS with a self-signed .test certificate, replace `containerName`
+      # Enables TLS with a self-signed .test certificate
       - traefik.http.routers.jenkins.entrypoints=web-secure
       - traefik.http.routers.jenkins.tls=true
       # Use a custom host name 
       - traefik.http.routers.jenkins.rule=Host(`jenkins.test`)
     environment:
-      - DOCKER_HOST=tcp://socat:2375
+      DOCKER_HOST: tcp://socat:2375
     networks: 
       - jenkins
       - vault
@@ -39,6 +39,8 @@ services:
         ports:
           - "127.0.0.1:2375:2375"
 
+
+
 volumes:
     jenkins-data:
     jenkins-docker-certs:
@@ -50,4 +52,3 @@ networks:
         name: vault_vault
     proxy:
       external: true
-        

@@ -1,5 +1,5 @@
-FROM jenkinsci/blueocean
-
+FROM jenkins/jenkins:2.249.3-lts-alpine 
+COPY --from=hashicorp/terraform:0.13.5 /bin/terraform /bin/
 ENV JENKINS_USER admin
 ENV JENKINS_PASS admin
 
@@ -10,7 +10,6 @@ USER root
 RUN apk add docker
 RUN apk add py-pip
 RUN apk add python3-dev libffi-dev openssl-dev gcc libc-dev make
-RUN apk add terraform
 RUN pip install docker-compose
 RUN pip install ansible
 # COPY default-user.groovy /usr/share/jenkins/ref/init.groovy.d/
