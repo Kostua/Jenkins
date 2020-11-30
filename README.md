@@ -5,12 +5,12 @@
 ![](./images/jenkinsascode.png)
 > Run the fully automated installation of Jenkins from code with infrastructure, configuration, jobs, and plugins.
 
-* [Introduction](#Introduction)
-* [System Requirements](#System\ Requirements)
+* [Introduction](#introduction)
+* [System Requirements](#systemrequirements)
 * [Configuration](#configuration)
-* [How To Use](#How\ To\ Use)
+* [How To Use](#howtouse)
 * [Screenshots](#screenshots)
-* [How its work](#how\ its\ work)
+* [How its work](#howitswork)
 * [Status](#status)
 * [Contact](#contact)
 
