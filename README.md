@@ -6,11 +6,11 @@
 > Run the fully automated installation of Jenkins from code with infrastructure, configuration, jobs, and plugins.
 
 * [Introduction](#introduction)
-* [System Requirements](#systemrequirements)
+* [System Requirements](#system-requirements)
 * [Configuration](#configuration)
-* [How To Use](#howtouse)
+* [How To Use](#how-to-use)
 * [Screenshots](#screenshots)
-* [How its work](#howitswork)
+* [How its work](#how-its-work)
 * [Status](#status)
 * [Contact](#contact)
 
