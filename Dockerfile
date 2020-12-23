@@ -2,6 +2,8 @@
 FROM jenkins/jenkins:2.249.3-lts-alpine
 # Fun way to get terraform ;)
 COPY --from=hashicorp/terraform:0.13.5 /bin/terraform /bin/
+COPY --from=hashicorp/packer:light /bin/packer /bin/
+
 # Set default login/password
 ENV JENKINS_USER admin
 ENV JENKINS_PASS admin
