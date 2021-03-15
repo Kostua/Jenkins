@@ -1,5 +1,5 @@
 # Base LTS version of Jenkins 
-FROM jenkins/jenkins:2.249.3-lts-alpine
+FROM jenkins/jenkins:2.277.1-lts-alpine
 # Fun way to get terraform ;)
 COPY --from=hashicorp/terraform:0.13.5 /bin/terraform /bin/
 COPY --from=hashicorp/packer:light /bin/packer /bin/
@@ -12,9 +12,13 @@ ENV JENKINS_PASS admin
 ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
 # Install additional packages
 USER root
+RUN apk add python3
 RUN apk add docker
-RUN apk add py-pip
-RUN apk add python3-dev libffi-dev openssl-dev gcc libc-dev make
+RUN apk add py3-pip
+RUN apk add py3-pynacl
+RUN apk add gcc musl-dev python3-dev libffi-dev openssl-dev cargo
+RUN pip install wheel
+RUN pip install --no-cache-dir cryptography
 RUN pip install docker-compose
 RUN pip install ansible
 # COPY default-user.groovy /usr/share/jenkins/ref/init.groovy.d/
