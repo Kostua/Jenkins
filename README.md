@@ -2,6 +2,8 @@
 
 [![Jenkins LTS Release](https://img.shields.io/endpoint?url=https%3A%2F%2Fwww.jenkins.io%2Fchangelog-stable%2Fbadge.json)](https://jenkins.io/changelog-stable)
 
+[![Jenkins Docker Iamge Actions Status](https://github.com/Kostua/Jenkins/workflows/docker-image.yml/badge.svg)](https://github.com/Kostua/Jenkins/actions)
+
 ![](./images/jenkinsascode.png)
 > Run the fully automated installation of Jenkins from code with infrastructure, configuration, jobs, and plugins.
 
