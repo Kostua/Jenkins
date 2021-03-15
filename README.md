@@ -1,9 +1,6 @@
 # Jenkins Configuration and Jobs as Code
 
-[![Jenkins LTS Release](https://img.shields.io/endpoint?url=https%3A%2F%2Fwww.jenkins.io%2Fchangelog-stable%2Fbadge.json)](https://jenkins.io/changelog-stable)
-
-[![Jenkins Docker Image Actions Status](https://github.com/Kostua/Jenkins/workflows/Docker%20Image%20CI/badge.svg)](https://github.com/Kostua/Jenkins/actions)
-
+[![Jenkins Docker Image Actions Status](https://github.com/Kostua/Jenkins/workflows/Docker%20Image%20CI/badge.svg)](https://github.com/Kostua/Jenkins/actions) [![Jenkins LTS Release](https://img.shields.io/endpoint?url=https%3A%2F%2Fwww.jenkins.io%2Fchangelog-stable%2Fbadge.json)](https://jenkins.io/changelog-stable)
 ![](./images/jenkinsascode.png)
 > Run the fully automated installation of Jenkins from code with infrastructure, configuration, jobs, and plugins.
 
