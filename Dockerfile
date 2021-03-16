@@ -1,7 +1,7 @@
 # Base LTS version of Jenkins 
 FROM jenkins/jenkins:2.277.1-lts-alpine
 # Fun way to get terraform ;)
-COPY --from=hashicorp/terraform:0.13.5 /bin/terraform /bin/
+COPY --from=hashicorp/terraform:0.14.8 /bin/terraform /bin/
 COPY --from=hashicorp/packer:light /bin/packer /bin/
 
 # Set default login/password
