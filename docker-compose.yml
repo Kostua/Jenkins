@@ -5,7 +5,7 @@ services:
     build: .
     hostname: jenkins
     container_name: jenkins
-    image: kostua/jenkins:2.289.11-lts-alpine
+    image: kostua/jenkins:2.289.3-lts-alpine
     labels:
        # Enables redirect to https
       - traefik.http.routers.jenkins.entrypoints=web
