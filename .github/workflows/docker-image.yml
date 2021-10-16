@@ -13,6 +13,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    
+    - name: Cache Docker layers
+      uses: actions/cache@v2
+      with:
+        path: /tmp/.buildx-cache
+        key: ${{ runner.os }}-buildx-${{ github.sha }}
+        restore-keys: |
+          ${{ runner.os }}-buildx-
+    
     - name: Check Out Repo
       uses: actions/checkout@v2
     
@@ -33,7 +42,7 @@ jobs:
         context: ./
         file: ./Dockerfile
         push: true
-        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/jenkins_casc_lts:$(date +%s)
+        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/jenkins_casc_lts:latest
 
     - name: Image digest
       run: echo ${{ steps.docker_build.outputs.digest }}  
