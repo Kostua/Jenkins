@@ -1,5 +1,5 @@
 # Base LTS version of Jenkins 
-FROM jenkins/jenkins:2.319.2-lts-alpine
+FROM jenkins/jenkins:2.339-alpine
 # Fun way to get terraform ;)
 COPY --from=hashicorp/terraform:0.14.8 /bin/terraform /bin/
 COPY --from=hashicorp/packer:light /bin/packer /bin/
