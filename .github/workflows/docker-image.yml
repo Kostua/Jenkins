@@ -13,6 +13,9 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1
     
     - name: Cache Docker layers
       uses: actions/cache@v2
@@ -46,6 +49,7 @@ jobs:
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/jenkins_casc_lts:latest
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache
+        platforms: linux/amd64,linux/arm64,linux/arm/v7
 
     - name: Image digest
       run: echo ${{ steps.docker_build.outputs.digest }}  
