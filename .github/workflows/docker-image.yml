@@ -38,7 +38,7 @@ jobs:
       id: docker_meta
       uses: docker/metadata-action@v3
       with:
-          images: bretfisher/allhands22
+          images: kostua/jenkins_casc_lts
           flavor: |
             latest=false
           tags: |
