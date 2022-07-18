@@ -56,7 +56,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: ${{ steps.docker_meta.outputs.tags }}
+        tags: ${{ github.run_id }}
         labels: ${{ steps.docker_meta.outputs.labels }}
         context: ./
         file: ./Dockerfile
