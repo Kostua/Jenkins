@@ -10,12 +10,46 @@ jobs:
 
     permissions:
       pull-requests: write # needed to create and update comments in PRs
+      contents: read # for actions/checkout to fetch code
+      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
 
     steps:
-
+    - name: Check Out Repo
+      uses: actions/checkout@v2
+    
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1
+   
+    - name: Set up Docker Buildx
+      id: buildx
+      uses: docker/setup-buildx-action@v1 
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+  
+
+    - name: Build and export to Docker
+      uses: docker/build-push-action@v2
+      with:
+        push: false
+        load: true # Export to Docker Engine rather than pushing to a registry
+        tags: ${{ github.run_id }}
+        target: test
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+        platforms: linux/amd64
     
+
+    - name: Run Trivy for all CVEs (non-blocking)
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: ${{ github.run_id }}
+        format: table 
+        exit-code: 0
+
     - name: Cache Docker layers
       uses: actions/cache@v2
       with:
@@ -24,15 +58,8 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-buildx-
     
-    - name: Check Out Repo
-      uses: actions/checkout@v2
     
-    - name: Login to Docker Hub
-      uses: docker/login-action@v1
-      with:
-        username: ${{ secrets.DOCKER_HUB_USERNAME }}
-        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-    
+
     - name: Docker meta
       id: docker_meta
       uses: docker/metadata-action@v3
@@ -47,9 +74,7 @@ jobs:
             type=ref,event=branch
             type=semver,pattern={{version}}
     
-    - name: Set up Docker Buildx
-      id: buildx
-      uses: docker/setup-buildx-action@v1
+
 
     - name: Build and push
       id: docker_build
@@ -64,13 +89,6 @@ jobs:
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache
         platforms: linux/amd64,linux/arm64,linux/arm/v7
-
-    - name: Run Trivy for all CVEs (non-blocking)
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: ${{ github.run_id }}
-        exit-code: 0
-        format: table 
 
     # If PR, put image tags in the PR comments
     # from https://github.com/marketplace/actions/create-or-update-comment      
